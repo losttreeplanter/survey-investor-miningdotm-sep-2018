@@ -1,0 +1,69 @@
+---
+title: "Investor Survey compile Sep 2018"
+output: html_notebook
+---
+
+
+
+
+
+
+```{r}
+
+library(tidyverse)
+
+raw_survey <- read_csv("Investor Survey April 2018 (Responses) - reformatted for r investor surv sep 2018(1).csv")
+
+glimpse(raw_survey)
+
+
+```
+
+
+
+Let's chart
+
+```{r}
+
+pie <- ggplot(raw_survey, aes(x = "", fill = factor(`Do you invest in the resource sector?`))) + 
+  geom_bar(width = 1) +
+  theme(axis.line = element_blank(), 
+        plot.title = element_text(hjust=0.5)) + 
+  labs(fill="class", 
+       x=NULL, 
+       y=NULL, 
+       title="Pie Chart of class", 
+       caption="Source: mpg")
+  
+pie + coord_polar(theta = "y", start=0)
+
+
+```
+
+
+
+Try another donut
+
+```{r}
+
+ggplot(raw_survey, aes(x=`Do you invest in the resource sector?`))+
+  geom_histogram(aes(y = (..`Do you invest in the resource sector?`..)/sum(..`Do you invest in the resource sector?`..))) +
+  scale_y_continuous(labels = function(x) paste0(x, "%"))
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
